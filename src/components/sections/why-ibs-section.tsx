@@ -24,7 +24,7 @@ export function WhyIbsSection() {
             return (
               <RevealItem key={item.title}>
                 <div className="flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-6">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-deep-blue/10 text-deep-blue">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-charcoal">
                     {Illustration && <Illustration className="h-6 w-6" />}
                   </span>
                   <h3 className="text-base font-semibold text-charcoal font-heading">{item.title}</h3>

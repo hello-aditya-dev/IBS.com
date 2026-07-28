@@ -234,6 +234,15 @@
     text-wrap: balance;
   }
 
+  /* Content-visibility for below-fold sections: skips rendering of
+     off-screen content until it enters the viewport, reducing initial
+     layout/paint work.  contain-intrinsic-size provides a stable
+     estimated height so the scrollbar doesn't jump. */
+  .content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+  }
+
   /* Solid, near-opaque nav surface -- deliberately NOT translucent so the
      WebGL hero's moving particles never show through and reduce readability.
      Blur is kept only as a subtle enhancement behind the ~98% opaque fill. */
@@ -262,6 +271,8 @@
   --animate-marquee: marquee 34s linear infinite;
   --animate-marquee-reverse: marquee-reverse 38s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
+  --animate-dropdown-in: dropdown-in 0.17s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-menu-in: menu-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -274,6 +285,14 @@
   @keyframes float {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-14px) rotate(2deg); }
+  }
+  @keyframes dropdown-in {
+    from { opacity: 0; transform: translateX(-50%) scale(0.98); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+  }
+  @keyframes menu-in {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 

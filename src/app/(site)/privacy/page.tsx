@@ -40,7 +40,7 @@ export default function PrivacyPolicyPage() {
             systems for organizations across India. This policy explains what information we collect
             when you use this website, why we collect it, and how we handle it.
           </p>
-          <p className="mt-4 text-sm text-steel/90">Effective date: {EFFECTIVE_DATE}</p>
+          <p className="mt-4 text-sm text-steel">Effective date: {EFFECTIVE_DATE}</p>
 
           <div className="mt-12 flex flex-col gap-10">
             <section>

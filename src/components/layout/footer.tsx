@@ -69,7 +69,7 @@ export function Footer() {
               <li><Link href="/careers" className="block min-h-[44px] text-sm leading-[44px] text-steel transition-colors hover:text-charcoal">Careers</Link></li>
               <li><Link href="/contact" className="block min-h-[44px] text-sm leading-[44px] text-steel transition-colors hover:text-charcoal">Contact</Link></li>
             </ul>
-            <p className="mt-2 text-xs text-steel/90">
+            <p className="mt-2 text-xs text-steel">
               Interested in joining IBS? <Link href="/careers" className="underline underline-offset-2 hover:text-charcoal">Get in touch</Link>.
             </p>
           </div>
@@ -85,7 +85,7 @@ export function Footer() {
                 <Phone className="h-4 w-4 shrink-0 text-deep-blue" />
                 <div className="flex flex-col">
                   {company.contact.phones.map((p) => (
-                    <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="hover:text-charcoal">
+                    <a key={p} href={`tel:${p.replace(/\s/g, "")}`} className="block min-h-[44px] leading-[44px] hover:text-charcoal">
                       {p}
                     </a>
                   ))}
@@ -108,7 +108,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-steel/90 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-steel sm:flex-row">
           <p>Copyright © {company.legalName} {new Date().getFullYear()}. All Rights Reserved.</p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-charcoal">

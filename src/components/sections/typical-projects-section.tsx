@@ -49,7 +49,7 @@ export function TypicalProjectsSection() {
             return (
               <RevealItem key={project.environment}>
                 <article className="flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-deep-blue/25 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-deep-blue/5">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-deep-blue/10 text-deep-blue">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-charcoal">
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="text-base font-semibold text-charcoal font-heading">

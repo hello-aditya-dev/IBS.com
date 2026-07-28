@@ -11,17 +11,11 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
-  // raw.githack.com serves the HDRI environment map the WebGL hero's
-  // <Environment preset="city" /> fetches at runtime (@react-three/drei
-  // ships no bundled preset assets) -- without it, the hero falls back to
-  // flat lighting with no reflections.
-  "connect-src 'self' https://vitals.vercel-insights.com https://vitals.vercel-analytics.com https://raw.githack.com https://wa.me",
+  // Vercel analytics and speed insights endpoints. The external
+  // raw.githack.com HDRI dependency has been removed (WebGL hero now
+  // uses self-contained directional lighting).
+  "connect-src 'self' https://vitals.vercel-insights.com https://vitals.vercel-analytics.com https://wa.me",
   // Allow the Google Maps embed used on /contact (ViewOnMap component).
-  // Without an explicit frame-src, the browser falls back to default-src
-  // 'self' and blocks the maps.google.com iframe with a "This content is
-  // blocked" error. Both maps.google.com (legacy embed endpoint) and
-  // www.google.com (newer embed + search URL) are needed because Google
-  // can serve either host depending on the request.
   "frame-src 'self' https://maps.google.com https://www.google.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",

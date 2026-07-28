@@ -52,7 +52,7 @@ export function SupportPhilosophy() {
             ease: EASE_OUT_EXPO as [number, number, number, number],
           }}
         >
-          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-deep-blue/10 text-deep-blue">
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-charcoal">
             <p.icon className="h-6 w-6" strokeWidth={1.5} />
           </span>
           <h3 className="mt-5 text-xl font-semibold text-charcoal font-heading">{p.title}</h3>

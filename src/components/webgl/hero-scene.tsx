@@ -2,12 +2,9 @@
 
 import { useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
-import { useReducedMotion } from "framer-motion";
 
 import { NetworkMesh } from "@/components/webgl/network-mesh";
 import { ParticleField } from "@/components/webgl/particle-field";
-import { EnvironmentErrorBoundary } from "@/components/webgl/environment-error-boundary";
 
 export interface HeroSceneDensity {
   nodeCount?: number;
@@ -22,10 +19,22 @@ export interface HeroSceneDensity {
   particleSpeed?: number;
 }
 
-/** All knobs default to the homepage hero's exact values -- passing a lighter `density` is opt-in. */
+/**
+ * HeroScene — Three.js network visualization.
+ *
+ * Uses self-contained directional + ambient + rim lighting instead of
+ * the external Environment preset, which required a runtime fetch from
+ * raw.githack.com. This removes:
+ * - The external network dependency
+ * - The console error when the HDRI fetch fails
+ * - The CSP noise for raw.githack.com
+ * - The DNS/connection setup latency
+ *
+ * The visual appearance is preserved with multi-directional warm/cool
+ * lighting that creates similar reflections and depth.
+ */
 export function HeroScene({ active = true, density = {} }: { active?: boolean; density?: HeroSceneDensity }) {
   const mouse = useRef({ x: 0, y: 0 });
-  const prefersReducedMotion = useReducedMotion();
 
   const {
     nodeCount,
@@ -48,17 +57,30 @@ export function HeroScene({ active = true, density = {} }: { active?: boolean; d
     };
   };
 
+  // Device-aware DPR: capped at 1 on mobile, 1.25–1.5 on desktop
+  const isMobile = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
   return (
     <div className="absolute inset-0" onPointerMove={handlePointerMove}>
       <Canvas
-        dpr={[1, 1.75]}
+        dpr={isMobile ? 1 : [1, 1.5]}
         camera={{ position: [0, 0, 6.5], fov: 42 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        frameloop={active && !prefersReducedMotion ? "always" : "never"}
+        gl={{
+          antialias: !isMobile,
+          alpha: true,
+          powerPreference: "high-performance",
+        }}
+        frameloop={active ? "always" : "never"}
       >
+        {/* ── Self-contained lighting (no external environment map) ── */}
         <ambientLight intensity={0.9} />
         <directionalLight position={[3, 3, 4]} intensity={1} />
         <directionalLight position={[-4, -2, -2]} intensity={0.35} color="#F97316" />
+        {/* Rim light for depth and warm reflections */}
+        <directionalLight position={[0, 2, -4]} intensity={0.3} color="#FDBA74" />
+        {/* Cool fill from below for contrast */}
+        <pointLight position={[0, -3, 2]} intensity={0.2} color="#9CA3AF" />
+
         <NetworkMesh
           mouse={mouse}
           count={nodeCount}
@@ -70,9 +92,6 @@ export function HeroScene({ active = true, density = {} }: { active?: boolean; d
           wireframeOpacity={wireframeOpacity}
         />
         <ParticleField count={particleCount} opacity={particleOpacity} speed={particleSpeed} />
-        <EnvironmentErrorBoundary>
-          <Environment preset="city" environmentIntensity={0.2} />
-        </EnvironmentErrorBoundary>
       </Canvas>
     </div>
   );

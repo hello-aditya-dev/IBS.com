@@ -159,7 +159,7 @@ export function SolutionsSection({ data, serviceImage }: SolutionsSectionProps) 
 
                   {/* Typical deployment */}
                   {solution.typicalDeployment && (
-                    <p className="mt-6 text-xs font-medium tracking-wide text-steel/60 uppercase">
+                    <p className="mt-6 text-xs font-medium tracking-wide text-steel uppercase">
                       Typical deployment
                     </p>
                   )}

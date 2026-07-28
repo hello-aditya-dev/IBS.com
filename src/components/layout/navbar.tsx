@@ -3,15 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 
 import { ButtonLink } from "@/components/shared/button-link";
-import { Magnetic } from "@/components/shared/magnetic";
 import { Logo } from "@/components/layout/logo";
 import { mainNav, serviceCategories } from "@/lib/content";
 import { navIconMap } from "@/lib/nav-icons";
-import { DURATION, EASE_OUT_EXPO } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /** Flat visual order of the dropdown (category order, not the raw services array) -- keyboard nav follows this. */
@@ -151,86 +148,81 @@ export function Navbar() {
                     <span className="absolute -bottom-0.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-deep-blue" />
                   )}
                 </button>
-                <AnimatePresence>
-                  {servicesOpen && (
-                    <motion.div
-                      id="services-menu"
-                      role="menu"
-                      aria-label="Services"
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.17, ease: EASE_OUT_EXPO }}
-                      onKeyDown={handleMenuKeyDown}
-                      onMouseEnter={() => !isCoarsePointer && setServicesOpen(true)}
-                      onMouseLeave={() => !isCoarsePointer && setServicesOpen(false)}
-                      className="absolute top-full left-1/2 mt-3 w-[420px] max-w-[94vw] origin-top -translate-x-1/2 rounded-[20px] border border-border bg-[var(--warm-white)] p-3.5 shadow-[0_20px_44px_-18px_rgba(0,0,0,0.16),0_8px_20px_-10px_rgba(0,0,0,0.08)] lg:w-[560px]"
-                    >
-                      <div className="grid grid-cols-2 gap-x-6">
-                        {serviceCategoryColumns.map((column, columnIndex) => (
-                          <div key={columnIndex} className="flex flex-col gap-3">
-                            {column.map((category) => (
-                              <div key={category.title}>
-                                <div className="mb-1.5 border-b border-border/70 pb-1">
-                                  <p className="text-[10px] font-semibold tracking-[0.14em] text-steel/60 uppercase">
-                                    {category.title}
-                                  </p>
-                                </div>
-                                <div className="flex flex-col gap-0.5">
-                                  {category.slugs.map((slug) => {
-                                    const child = link.children.find((c) => c.slug === slug);
-                                    if (!child) return null;
-                                    const Icon = navIconMap[child.slug];
-                                    const index = orderedServiceSlugs.indexOf(slug);
-                                    return (
-                                      <Link
-                                        key={child.href}
-                                        href={child.href}
-                                        role="menuitem"
-                                        data-cursor-hover
-                                        ref={(el) => {
-                                          itemRefs.current[index] = el;
-                                        }}
-                                        onClick={() => setServicesOpen(false)}
-                                        className="group relative flex items-center gap-2.5 rounded-lg px-2.5 py-2.5 transition-colors duration-200 hover:bg-deep-blue/8 focus-visible:bg-deep-blue/8"
-                                      >
-                                        <span className="absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 scale-y-0 rounded-full bg-deep-blue transition-transform duration-200 group-hover:scale-y-100 group-focus-visible:scale-y-100" />
-                                        {Icon && (
-                                          <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center text-steel transition-colors duration-200 group-hover:text-deep-blue">
-                                            <Icon className="h-5 w-5" />
-                                          </span>
-                                        )}
-                                        <span className="flex min-w-0 flex-col">
-                                          <span className="truncate text-[16px] leading-tight font-medium text-charcoal transition-colors duration-200 group-hover:text-deep-blue">
-                                            {child.label}
-                                          </span>
-                                          <span className="truncate text-[13px] leading-tight text-steel">{child.tagline}</span>
-                                        </span>
-                                        {isActive(child.href) && (
-                                          <span className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-deep-blue" />
-                                        )}
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
+                {/* Services dropdown with CSS transitions instead of Framer Motion */}
+                {servicesOpen && (
+                  <div
+                    id="services-menu"
+                    role="menu"
+                    aria-label="Services"
+                    onKeyDown={handleMenuKeyDown}
+                    onMouseEnter={() => !isCoarsePointer && setServicesOpen(true)}
+                    onMouseLeave={() => !isCoarsePointer && setServicesOpen(false)}
+                    className="animate-dropdown-in absolute top-full left-1/2 mt-3 w-[420px] max-w-[94vw] origin-top -translate-x-1/2 rounded-[20px] border border-border bg-[var(--warm-white)] p-3.5 shadow-[0_20px_44px_-18px_rgba(0,0,0,0.16),0_8px_20px_-10px_rgba(0,0,0,0.08)] lg:w-[560px]"
+                  >
+                    <div className="grid grid-cols-2 gap-x-6">
+                      {serviceCategoryColumns.map((column, columnIndex) => (
+                        <div key={columnIndex} className="flex flex-col gap-3">
+                          {column.map((category) => (
+                            <div key={category.title}>
+                              <div className="mb-1.5 border-b border-border/70 pb-1">
+                                <p className="text-[10px] font-semibold tracking-[0.14em] text-steel uppercase">
+                                  {category.title}
+                                </p>
                               </div>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-2.5 border-t border-border pt-2">
-                        <Link
-                          href="/services"
-                          data-cursor-hover
-                          onClick={() => setServicesOpen(false)}
-                          className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-sm font-medium text-deep-blue hover:bg-deep-blue/8"
-                        >
-                          View all services <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                              <div className="flex flex-col gap-0.5">
+                                {category.slugs.map((slug) => {
+                                  const child = link.children.find((c) => c.slug === slug);
+                                  if (!child) return null;
+                                  const Icon = navIconMap[child.slug];
+                                  const index = orderedServiceSlugs.indexOf(slug);
+                                  return (
+                                    <Link
+                                      key={child.href}
+                                      href={child.href}
+                                      role="menuitem"
+                                      data-cursor-hover
+                                      ref={(el) => {
+                                        itemRefs.current[index] = el;
+                                      }}
+                                      onClick={() => setServicesOpen(false)}
+                                      className="group relative flex items-center gap-2.5 rounded-lg px-2.5 py-2.5 transition-colors duration-200 hover:bg-deep-blue/8 focus-visible:bg-deep-blue/8"
+                                    >
+                                      <span className="absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 scale-y-0 rounded-full bg-deep-blue transition-transform duration-200 group-hover:scale-y-100 group-focus-visible:scale-y-100" />
+                                      {Icon && (
+                                        <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center text-steel transition-colors duration-200 group-hover:text-deep-blue">
+                                          <Icon className="h-5 w-5" />
+                                        </span>
+                                      )}
+                                      <span className="flex min-w-0 flex-col">
+                                        <span className="truncate text-[16px] leading-tight font-medium text-charcoal transition-colors duration-200 group-hover:text-deep-blue">
+                                          {child.label}
+                                        </span>
+                                        <span className="truncate text-[13px] leading-tight text-steel">{child.tagline}</span>
+                                      </span>
+                                      {isActive(child.href) && (
+                                        <span className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-deep-blue" />
+                                      )}
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-2.5 border-t border-border pt-2">
+                      <Link
+                        href="/services"
+                        data-cursor-hover
+                        onClick={() => setServicesOpen(false)}
+                        className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-sm font-medium text-deep-blue hover:bg-deep-blue/8"
+                      >
+                        View all services <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <Link
@@ -252,22 +244,20 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:flex">
-          <Magnetic>
-            <ButtonLink
-              href="/contact"
-              variant="cta"
-              size="sm"
-              className="rounded-full transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-8px_rgba(234,88,12,0.4)]"
-              data-cursor-hover
-            >
-              Talk to us <ArrowRight className="h-3.5 w-3.5" />
-            </ButtonLink>
-          </Magnetic>
+          <ButtonLink
+            href="/contact"
+            variant="cta"
+            size="sm"
+            className="rounded-full transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-8px_rgba(234,88,12,0.4)]"
+            data-cursor-hover
+          >
+            Talk to us <ArrowRight className="h-3.5 w-3.5" />
+          </ButtonLink>
         </div>
 
         <button
           ref={mobileToggleRef}
-          className="flex h-11 w-11 items-center justify-center rounded-full text-charcoal lg:hidden"
+          className="flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full text-charcoal lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -277,69 +267,64 @@ export function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            id="mobile-nav-menu"
-            role="navigation"
-            aria-label="Mobile"
-            ref={mobileMenuRef}
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: DURATION.base, ease: EASE_OUT_EXPO }}
-            className="glass absolute inset-x-3 top-[72px] z-40 flex max-h-[70vh] flex-col gap-0.5 overflow-y-auto rounded-2xl p-3 shadow-[0_32px_64px_-20px_rgba(0,0,0,0.18),0_10px_28px_-10px_rgba(0,0,0,0.1)] lg:hidden"
-          >
-            {mainNav.map((link) => (
-              <div key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="flex min-h-[44px] items-center rounded-2xl px-4 text-sm font-medium text-charcoal hover:bg-deep-blue/5"
-                >
-                  {link.label}
-                </Link>
-                {"children" in link && link.children && (
-                  <div className="ml-3 flex flex-col border-l border-border pl-3">
-                    {link.children.map((child) => {
-                      const Icon = navIconMap[child.slug];
-                      return (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setOpen(false)}
-                          className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 text-sm text-steel hover:text-charcoal"
-                        >
-                          {Icon && (
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-deep-blue/10 text-deep-blue">
-                              <Icon className="h-4 w-4" />
-                            </span>
-                          )}
-                          <span className="flex flex-col">
-                            {child.label}
-                            <span className="block text-xs text-steel/90">{child.tagline}</span>
-                          </span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            ))}
-            <div className="mt-2 border-t border-border pt-3">
-              <ButtonLink
-                href="/contact"
+      {/* Mobile menu with CSS transitions instead of Framer Motion */}
+      {open && (
+        <div
+          id="mobile-nav-menu"
+          role="navigation"
+          aria-label="Mobile"
+          ref={mobileMenuRef}
+          className="animate-menu-in glass absolute inset-x-3 top-[72px] z-40 flex max-h-[70vh] flex-col gap-0.5 overflow-y-auto rounded-2xl p-3 shadow-[0_32px_64px_-20px_rgba(0,0,0,0.18),0_10px_28px_-10px_rgba(0,0,0,0.1)] lg:hidden"
+        >
+          {mainNav.map((link) => (
+            <div key={link.href}>
+              <Link
+                href={link.href}
                 onClick={() => setOpen(false)}
-                variant="cta"
-                size="lg"
-                className="w-full rounded-full"
+                className="flex min-h-[44px] items-center rounded-2xl px-4 text-sm font-medium text-charcoal hover:bg-deep-blue/5"
               >
-                Talk to us
-              </ButtonLink>
+                {link.label}
+              </Link>
+              {"children" in link && link.children && (
+                <div className="ml-3 flex flex-col border-l border-border pl-3">
+                  {link.children.map((child) => {
+                    const Icon = navIconMap[child.slug];
+                    return (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={() => setOpen(false)}
+                        className="flex min-h-[44px] items-center gap-3 rounded-xl px-3 text-sm text-steel hover:text-charcoal"
+                      >
+                        {Icon && (
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-charcoal">
+                            <Icon className="h-4 w-4" />
+                          </span>
+                        )}
+                        <span className="flex flex-col">
+                          {child.label}
+                          <span className="block text-xs text-steel">{child.tagline}</span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+          <div className="mt-2 border-t border-border pt-3">
+            <ButtonLink
+              href="/contact"
+              onClick={() => setOpen(false)}
+              variant="cta"
+              size="lg"
+              className="w-full rounded-full"
+            >
+              Talk to us
+            </ButtonLink>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

@@ -99,7 +99,7 @@ export function HeroSection({ service, data }: HeroSectionProps) {
               {trustBadges.map((badge) => (
                 <span
                   key={badge.label}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-steel/70"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-steel"
                 >
                   <span className="h-1 w-1 rounded-full bg-steel/40" />
                   {badge.label}

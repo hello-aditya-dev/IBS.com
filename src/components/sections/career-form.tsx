@@ -211,7 +211,7 @@ export function CareerForm() {
           aria-invalid={!!errors.resumeLink}
           {...register("resumeLink")}
         />
-        <p id="career-resume-hint" className="text-xs text-steel/80">
+        <p id="career-resume-hint" className="text-xs text-steel">
           Upload your resume to Google Drive, Dropbox, or any public link and paste it here.
         </p>
         {errors.resumeLink && (

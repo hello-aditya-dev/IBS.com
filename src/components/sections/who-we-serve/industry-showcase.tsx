@@ -111,7 +111,7 @@ export function IndustryShowcase({ segment, reversed, index }: IndustryShowcaseP
 
             {/* Challenges */}
             <div className="mt-8">
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.15em] text-steel/60">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.15em] text-steel">
                 Typical challenges
               </h3>
               <ul className="space-y-2">
@@ -126,7 +126,7 @@ export function IndustryShowcase({ segment, reversed, index }: IndustryShowcaseP
 
             {/* Service tags with icons */}
             <div className="mt-8">
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.15em] text-steel/60">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.15em] text-steel">
                 Solutions we deploy
               </h3>
               <div className="flex flex-wrap gap-2.5">

@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 import { HeroSection, defaultHeroContent, type HeroContent } from "@/components/sections/hero-section";
-import { WhoWeAreSection } from "@/components/sections/who-we-are-section";
-import { ServicesGridSection } from "@/components/sections/services-grid-section";
 import { getContentOverride } from "@/lib/content-overrides";
 
+// Dynamic imports for below-fold sections — loaded on demand
+const WhoWeAreSection = dynamic(
+  () => import("@/components/sections/who-we-are-section").then((m) => ({ default: m.WhoWeAreSection }))
+);
+const ServicesGridSection = dynamic(
+  () => import("@/components/sections/services-grid-section").then((m) => ({ default: m.ServicesGridSection }))
+);
 const SegmentsTeaserSection = dynamic(
   () => import("@/components/sections/segments-teaser-section").then((m) => ({ default: m.SegmentsTeaserSection }))
 );
@@ -61,13 +67,13 @@ export default async function Home() {
   return (
     <>
       <HeroSection headline={hero.headline} subcopy={hero.subcopy} />
-      <WhoWeAreSection />
-      <ServicesGridSection />
-      <SegmentsTeaserSection />
-      <EngineeringProcessSection />
-      <PartnerMarqueeSection />
-      <WhyIbsSection />
-      <CtaSection />
+      <div className="content-auto"><Suspense fallback={null}><WhoWeAreSection /></Suspense></div>
+      <div className="content-auto"><Suspense fallback={null}><ServicesGridSection /></Suspense></div>
+      <div className="content-auto"><Suspense fallback={null}><SegmentsTeaserSection /></Suspense></div>
+      <div className="content-auto"><Suspense fallback={null}><EngineeringProcessSection /></Suspense></div>
+      <div className="content-auto"><Suspense fallback={null}><PartnerMarqueeSection /></Suspense></div>
+      <div className="content-auto"><Suspense fallback={null}><WhyIbsSection /></Suspense></div>
+      <div className="content-auto"><Suspense fallback={null}><CtaSection /></Suspense></div>
     </>
   );
 }

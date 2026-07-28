@@ -1,24 +1,25 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Space_Grotesk } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 import { Toaster } from "@/components/ui/sonner";
 import { OrganizationJsonLd } from "@/components/seo/organization-jsonld";
 import { WebsiteJsonLd } from "@/components/seo/website-jsonld";
 import { ServiceJsonLd } from "@/components/seo/service-jsonld";
+import { VercelAnalyticsIsland } from "@/components/providers/vercel-analytics-provider";
 import { company } from "@/lib/content";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+  display: "swap",
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibsinfra.com";
@@ -116,7 +117,6 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://vitals.vercel-insights.com" />
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
-        <link rel="dns-prefetch" href="https://raw.githack.com" />
       </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <OrganizationJsonLd />
@@ -124,8 +124,7 @@ export default function RootLayout({
         <ServiceJsonLd />
         {children}
         <Toaster />
-        <Analytics />
-        <SpeedInsights />
+        <VercelAnalyticsIsland />
       </body>
     </html>
   );

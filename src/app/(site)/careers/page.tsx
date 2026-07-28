@@ -192,7 +192,7 @@ export default function CareersPage() {
 
                   <div className="mt-7 grid grid-cols-1 gap-8 border-t border-border pt-7 md:grid-cols-2">
                     <div>
-                      <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-steel/70 uppercase">
+                      <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-steel uppercase">
                         What you&apos;ll do
                       </h4>
                       <ul className="flex flex-col gap-2">
@@ -208,7 +208,7 @@ export default function CareersPage() {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-steel/70 uppercase">
+                      <h4 className="mb-3 text-xs font-semibold tracking-[0.14em] text-steel uppercase">
                         What we&apos;re looking for
                       </h4>
                       <ul className="flex flex-col gap-2">

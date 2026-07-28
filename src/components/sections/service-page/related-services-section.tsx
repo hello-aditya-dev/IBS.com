@@ -90,7 +90,7 @@ export function RelatedServicesSection({ currentSlug }: RelatedServicesSectionPr
 
               {/* EEAT trust signals — concise, factual */}
               <div className="mt-4 border-t border-border pt-4">
-                <ul className="flex flex-col gap-2 text-xs text-steel/80">
+                <ul className="flex flex-col gap-2 text-xs text-steel">
                   <li>Authorized OEM partner for 40+ technology brands</li>
                   <li>Certified engineers for professional installation</li>
                   <li>PAN India deployment with dedicated project teams</li>
