@@ -28,16 +28,17 @@ export function OrganizationJsonLd() {
     address: {
       "@type": "PostalAddress",
       "@id": `${siteUrl}/#address`,
-      streetAddress: "Plot No. 94, 3rd Floor, Block - B, Pocket - 10, Sector - 13, Dwarka",
+      streetAddress: "4/1, Prem Nagar, Tihar, Janakpuri",
       addressLocality: "New Delhi",
       addressRegion: "DL",
-      postalCode: "110075",
+      postalCode: "110018",
       addressCountry: "IN",
     },
     // NOTE: `geo` (GeoCoordinates) is intentionally omitted. We don't have
-    // survey-verified lat/long for the Dwarka office, and an approximate
-    // pin would be worse than none — Google Maps already resolves the
-    // PostalAddress correctly. Add geo only when verified coordinates exist.
+    // survey-verified lat/long for the Prem Nagar, Tihar, Janakpuri office,
+    // and an approximate pin would be worse than none — Google Maps already
+    // resolves the PostalAddress correctly. Add geo only when verified
+    // coordinates exist.
     areaServed: [
       { "@type": "Country", name: "India" },
     ],

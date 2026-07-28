@@ -10,7 +10,7 @@ interface ViewOnMapProps {
 }
 
 export function ViewOnMap({
-  address = "Plot No. 94, 3rd Floor, Block - B, Pocket - 10, Sector - 13, Dwarka, New Delhi - 110075",
+  address = "4/1, Prem Nagar, Tihar, Janakpuri, New Delhi - 110018",
   className = "",
 }: ViewOnMapProps) {
   const [isOpen, setIsOpen] = useState(false);

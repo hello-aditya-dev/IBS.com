@@ -48,9 +48,9 @@ export const company = {
     phones: ["+91 83685 61919", "+91 9873870992"],
     email: "sales@insight-solutions.in",
     address:
-      "Plot No. 94, 3rd Floor, Block - B, Pocket - 10, Sector - 13, Dwarka, New Delhi - 110075",
+      "4/1, Prem Nagar, Tihar, Janakpuri, New Delhi - 110018",
     mapQuery:
-      "Plot No. 94, 3rd Floor, Block - B, Pocket - 10, Sector - 13, Dwarka, New Delhi - 110075",
+      "4/1, Prem Nagar, Tihar, Janakpuri, New Delhi, Delhi 110018, India",
   },
   serviceAreas: [
     "PAN India",
