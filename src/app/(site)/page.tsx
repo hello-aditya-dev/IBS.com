@@ -71,9 +71,9 @@ export default async function Home() {
       <div className="content-auto"><Suspense fallback={null}><ServicesGridSection /></Suspense></div>
       <div className="content-auto"><Suspense fallback={null}><SegmentsTeaserSection /></Suspense></div>
       <div className="content-auto"><Suspense fallback={null}><EngineeringProcessSection /></Suspense></div>
-      <div className="content-auto"><Suspense fallback={null}><PartnerMarqueeSection /></Suspense></div>
-      <div className="content-auto"><Suspense fallback={null}><WhyIbsSection /></Suspense></div>
-      <div className="content-auto"><Suspense fallback={null}><CtaSection /></Suspense></div>
+      <div><Suspense fallback={null}><PartnerMarqueeSection /></Suspense></div>
+      <div><Suspense fallback={null}><WhyIbsSection /></Suspense></div>
+      <div><Suspense fallback={null}><CtaSection /></Suspense></div>
     </>
   );
 }

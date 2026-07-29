@@ -32,6 +32,9 @@ export interface HeroSceneDensity {
  *
  * The visual appearance is preserved with multi-directional warm/cool
  * lighting that creates similar reflections and depth.
+ *
+ * When `active` is false (hero off-screen or page hidden), the frameloop
+ * is set to "never" to avoid rendering invisible frames.
  */
 export function HeroScene({ active = true, density = {} }: { active?: boolean; density?: HeroSceneDensity }) {
   const mouse = useRef({ x: 0, y: 0 });

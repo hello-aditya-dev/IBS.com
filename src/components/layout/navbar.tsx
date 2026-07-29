@@ -151,13 +151,19 @@ export function Navbar() {
                 {/* Services dropdown with CSS transitions instead of Framer Motion */}
                 {servicesOpen && (
                   <div
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2"
+                    onMouseEnter={() => !isCoarsePointer && setServicesOpen(true)}
+                    onMouseLeave={() => !isCoarsePointer && setServicesOpen(false)}
+                  >
+                    {/* Hover bridge: transparent zone keeps menu open while pointer crosses the gap */}
+                  <div
                     id="services-menu"
                     role="menu"
                     aria-label="Services"
                     onKeyDown={handleMenuKeyDown}
                     onMouseEnter={() => !isCoarsePointer && setServicesOpen(true)}
                     onMouseLeave={() => !isCoarsePointer && setServicesOpen(false)}
-                    className="animate-dropdown-in absolute top-full left-1/2 mt-3 w-[420px] max-w-[94vw] origin-top -translate-x-1/2 rounded-[20px] border border-border bg-[var(--warm-white)] p-3.5 shadow-[0_20px_44px_-18px_rgba(0,0,0,0.16),0_8px_20px_-10px_rgba(0,0,0,0.08)] lg:w-[560px]"
+                    className="animate-dropdown-in w-[420px] max-w-[94vw] origin-top rounded-[20px] border border-border bg-[var(--warm-white)] p-3.5 shadow-[0_20px_44px_-18px_rgba(0,0,0,0.16),0_8px_20px_-10px_rgba(0,0,0,0.08)] lg:w-[560px]"
                   >
                     <div className="grid grid-cols-2 gap-x-6">
                       {serviceCategoryColumns.map((column, columnIndex) => (
@@ -221,6 +227,7 @@ export function Navbar() {
                         View all services <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </div>
+                  </div>
                   </div>
                 )}
               </div>
