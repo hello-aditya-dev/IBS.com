@@ -12,7 +12,7 @@ export function Logo({ className, tone = "light" }: { className?: string; tone?:
       <span
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-md text-sm font-bold",
-          tone === "dark" ? "bg-warm-white text-charcoal" : "bg-tangerine-700 text-white"
+          tone === "dark" ? "bg-warm-white text-charcoal" : "bg-deep-blue text-warm-white"
         )}
         aria-hidden
       >
