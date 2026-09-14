@@ -22,7 +22,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibsinfra.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ibsinfra.com";
 const isUsingFallback = !process.env.NEXT_PUBLIC_SITE_URL;
 if (isUsingFallback) {
   console.warn(
